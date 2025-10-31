@@ -1,160 +1,215 @@
-# Career Page API
+# Career Page API 🚀
 
-A lightweight Express service for handling job applications with resume uploads. This API accepts candidate applications (form data + resume) and automatically forwards them to your hiring team's email inbox. Built with security and reliability in mind.
+A professional Express.js API for streamlining job applications. This service securely handles candidate applications with resume uploads and automatically forwards them to your hiring team via email. Built with security, reliability, and scalability in mind.
 
-## Features
+## ✨ Key Features
 
-- Simple Application Endpoint (`/api/apply`)
-  - Accepts applicant details and resume upload in one request
-  - Supports PDF and DOCX resume formats (up to 5MB)
-  - Validates required fields and file types
-  - Returns user-friendly error messages
+### 📝 Application Processing
+- Modern REST API endpoint (`/api/apply`)
+- Smart form handling with resume upload
+- Support for PDF and DOCX formats (up to 5MB)
+- Comprehensive field validation
+- User-friendly error responses
 
-- Email Delivery
-  - Automatically forwards applications to configured company email
-  - Includes formatted HTML email with applicant details
-  - Attaches the resume file
-  - Configurable SMTP settings
+### 📧 Email Integration
+- Automated application forwarding
+- Professional HTML email templates
+- Secure resume attachments
+- Configurable SMTP settings
+- Reply-to support for direct communication
 
-- Security & Protection
-  - Security headers via Helmet
-  - CORS protection
-  - Rate limiting (10 requests per 15 minutes)
-  - Request size limits
-  - File type validation
+### 🛡️ Security First
+- Industry-standard security headers (Helmet)
+- CORS protection
+- Intelligent rate limiting (10/15min)
+- Request size validation
+- File type verification
 
-- ## Logging & Monitoring
-  - Structured logging with Winston
-  - Console output for development
-  - Separate error and combined log files
-  - Request logging with IP tracking
-  - Health check endpoint (`/health`)
+### 📊 Monitoring & Logging
+- Structured logging (Winston)
+- Development console output
+- Organized log files
+- IP-based request tracking
+- Health monitoring (`/health`)
 
-## Prerequisites
+## 🚦 Prerequisites
 
 - Node.js (v18 or higher recommended)
 - NPM or Yarn
 - SMTP server access for email delivery
 
-## Installation
+## 🔧 Quick Setup
 
-1. Clone the repository:
-git clone <repository-url>
-cd career-page
+```bash
+# Clone the repository
+git clone https://github.com/bowotojerry/career_page_backend.git
+cd career_page_backend
 
-
-2. Install dependencies:
+# Install dependencies
 npm install
 
-
-3. Create environment configuration:
-
+# Setup environment variables
 cp .env.example .env
-# Edit .env with your settings
+```
+
+## ⚙️ Configuration
+
+Create a `.env` file with the following variables:
+
+```env
+# Application
+APP_PORT=7000              # Server port number
+LOG_LEVEL=info            # Logging level (debug, info, warn, error)
+
+# Email Settings
+EMAIL_HOST=smtp.gmail.com  # SMTP server host
+EMAIL_PORT=587            # SMTP port
+EMAIL_USER=your@email.com # SMTP username
+EMAIL_PASS=yourpassword   # SMTP password
+COMPANY_EMAIL=hr@company.com # Recipient email
+```
 
 
-## Configuration
+## 🚀 Usage
 
-Create a `.env` file in the project root with the following variables:
-
-env
-# App
-APP_PORT=your app port
-LOG_LEVEL=info
-
-# Email (SMTP)
-EMAIL_HOST=smtp.example.com
-EMAIL_PORT= your-email-port
-EMAIL_USER=your-email@example.com
-EMAIL_PASS=your-smtp-password
-COMPANY_EMAIL=hiring-team@company.com
-
-
-## Usage
-
-### Development
+```bash
+# Development mode
 npm run start:dev
 
-
-### Production
+# Production mode
 npm run start:prod
+```
 
+## 🔌 API Endpoints
 
-## API Endpoints
+### Submit Application
+```http
+POST /api/apply
+Content-Type: multipart/form-data
+```
 
-### POST /api/apply
-Submit a job application with resume.
-
-## Request:
-- Content-Type: multipart/form-data
-- Body:
-  - firstName (required): Applicant's first name
-  - lastName (required): Applicant's last name
-  - email (required): Applicant's email address
-  - linkedin (optional): LinkedIn profile URL
-  - resume (required): PDF or DOCX file (max 5MB)
-
-## Success Response:
-json
+**Request Body:**
+```json
 {
-  "message": "Application submitted successfully! We'll review your resume shortly."
+    "firstName": "string (required)",
+    "lastName": "string (required)",
+    "email": "string (required)",
+    "linkedin": "string (optional)",
+    "resume": "file (required, PDF/DOCX, max 5MB)"
+}
+```
+
+**Success Response:**
+```json
+{
+    "message": "Application submitted successfully! We'll review your resume shortly."
+}
+```
+
+### Health Check
+```http
+GET /health
+```
+
+**Response:**
+```json
+{
+    "status": "OK"
+}
+```
+
+
+## ⚠️ Error Handling
+
+The API provides consistent error responses with appropriate HTTP status codes:
+
+```javascript
+// 400 Bad Request - Invalid input or file
+{
+    "error": "File too large. Maximum 5MB allowed."
 }
 
-
-### GET /health
-Check API health status.
-
-## Success Response:
- json
+// 429 Too Many Requests - Rate limit exceeded
 {
-  "status": "OK"
+    "error": "Too many applications. Please try again later."
 }
 
-
-## Error Handling
-
-The API returns appropriate HTTP status codes and error messages:
-
-- 400: Bad Request (invalid input, file too large)
-- 429: Too Many Requests (rate limit exceeded)
-- 500: Internal Server Error
-
-Example error response:
-json
+// 500 Internal Server Error - Server issues
 {
-  "error": "File too large. Maximum 5MB allowed."
+    "error": "Something went wrong. Please try again later."
 }
+```
 
+## 📊 Logging System
 
-## Logging
+Logs are organized in the `src/logs` directory:
+```
+logs/
+├── combined.log    # All log levels
+├── error.log       # Error-level logs
+├── exceptions.log  # Uncaught exceptions
+└── rejections.log  # Unhandled promises
+```
 
-Logs are stored in the `src/logs` directory:
-- `combined.log`: All log levels
-- `error.log`: Error-level logs only
-- `exceptions.log`: Uncaught exceptions
-- `rejections.log`: Unhandled promise rejections
+## 🛠️ Technology Stack
 
-## Tech Stack
+- **Core Framework**: Express.js
+- **Security Suite**: 
+  - `helmet` (security headers)
+  - `cors` (CORS protection)
+  - `express-rate-limit` (rate limiting)
+- **File Processing**: `multer`
+- **Email Service**: `nodemailer`
+- **Logging System**: `winston`
+- **Development**: `nodemon`
 
-- Framework: Express.js
-- Security: helmet, cors, express-rate-limit
-- File Upload: multer
-- Email: nodemailer
-- Logging:winston
-- Development: nodemon
+## 📂 Project Structure
+```
+career_page/
+├── src/
+│   ├── app.js           # Express configuration
+│   ├── server.js        # Entry point
+│   ├── config/          # Configurations
+│   ├── controller/      # Request handlers
+│   ├── middleware/      # Custom middleware
+│   ├── routes/          # API routes
+│   ├── services/        # Business logic
+│   ├── utils/          # Utilities
+│   └── logs/           # Log files
+├── .env                # Environment variables
+└── package.json       # Dependencies
 
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create your feature branch:
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m 'Add amazing feature'
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature/amazing-feature
+   ```
 5. Open a Pull Request
 
-## License
+## 📝 License
 
-This project is licensed under the ISC License - see the LICENSE file for details.
+This project is licensed under the ISC License.
 
-## Support
+## 🆘 Support & Issues
 
-For support, please open an issue in the repository.
+For support:
+1. Check existing issues
+2. Open a new issue with detailed information
+3. Follow the issue template guidelines
+
+## 🔒 Security
+
+Report security vulnerabilities via email instead of public issues.
+
+---
+Made with ❤️ by [bowotojerry](https://github.com/bowotojerry)
