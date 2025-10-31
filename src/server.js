@@ -1,5 +1,5 @@
 require("dotenv").config();
-const app = require("./app");  // Fix the path to be relative to current directory
+const app = require("./app"); 
 const logger = require("./utils/logger");
 
 const APP_PORT = process.env.APP_PORT || 5000;
