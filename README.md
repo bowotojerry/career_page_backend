@@ -58,12 +58,12 @@ Create a `.env` file with the following variables:
 
 ```env
 # Application
-APP_PORT=           # Server port number
+APP_PORT=              # Server port number
 LOG_LEVEL=info            # Logging level (debug, info, warn, error)
 
 # Email Settings
 EMAIL_HOST=smtp.gmail.com  # SMTP server host
-EMAIL_PORT=     # SMTP port
+EMAIL_PORT=            # SMTP port (587 for TLS, 465 for SSL)
 EMAIL_USER=your@email.com # SMTP username
 EMAIL_PASS=yourpassword   # SMTP password
 COMPANY_EMAIL=hr@company.com # Recipient email
