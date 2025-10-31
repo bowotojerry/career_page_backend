@@ -1,4 +1,3 @@
-// services/emailService.js
 const nodemailer = require('nodemailer');
 const emailConfig = require('../config/emailConfig');
 const logger = require('../utils/logger');
