@@ -42,7 +42,7 @@ const sendConfirmationToApplicant = async (formData) => {
   const { firstName, email } = formData;
 
   const mailOptions = {
-    from: `"Shanks Media - Careers" <${process.env.EMAIL_USER}>`,
+    from: `"vazz - Careers" <${process.env.EMAIL_USER}>`,
     to: email,
     subject: 'We Received Your Application!',
     html: `
@@ -57,8 +57,8 @@ const sendConfirmationToApplicant = async (formData) => {
             Just reply to this email — we’ll get it.
           </p>
           <p style="color:#888;font-size:12px;">
-            Shanks Media & Software Company<br>
-            <a href="mailto:info@shanksmedia.com">info@shanksmedia.com</a>
+            vazz Software Company<br>
+            <a href="mailto:info@vazz.com">info@vazz.com</a>
           </p>
         </div>
       </div>
